@@ -1,0 +1,49 @@
+---
+- name: "Validate sysctl configuration"
+  ansible.builtin.fail:
+    msg: "sysctl_settings variable is not defined"
+  when: sysctl_settings is not defined
+  tags: [sysctl, validation]
+
+- name: "Configure sysctl settings"
+  tags: [sysctl, security]
+  block:
+    - name: "Configure IPv6 settings"
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_file: "/etc/sysctl.d/99-ipv6.conf"
+        state: "present"
+        reload: true
+      loop: "{{ sysctl_settings.ipv6 | dict2items }}"
+      when: sysctl_settings.ipv6 is defined
+
+    - name: "Configure kernel security settings"
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_file: "/etc/sysctl.d/99-fstek-cis-hardening.conf"
+        state: "present"
+        reload: true
+      loop: "{{ sysctl_settings.kernel | dict2items }}"
+      when: sysctl_settings.kernel is defined
+
+    - name: "Configure filesystem security settings"
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_file: "/etc/sysctl.d/99-fstek-cis-hardening.conf"
+        state: "present"
+        reload: true
+      loop: "{{ sysctl_settings.file_system | dict2items }}"
+      when: sysctl_settings.file_system is defined
+
+    - name: "Configure network security settings"
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        sysctl_file: "/etc/sysctl.d/99-fstek-cis-hardening.conf"
+        state: "present"
+        reload: true
+      loop: "{{ sysctl_settings.network | dict2items }}"
+      when: sysctl_settings.network is defined

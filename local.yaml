@@ -1,0 +1,10 @@
+---
+- name: "Configure linux"
+  hosts: "local"
+  become: true
+  roles:
+    - role: "packages"
+    - role: "bash"
+    - role: "sysctl"
+    - role: "sshd"
+    - role: "chrony"

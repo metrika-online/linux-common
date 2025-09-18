@@ -1,0 +1,81 @@
+---
+# Настройки времени
+ntp_servers:
+  - 0.ru.pool.ntp.org
+  - 1.ru.pool.ntp.org
+  - 2.ru.pool.ntp.org
+
+# Универсальные пакеты под все Linux
+packages:
+  base_utils:
+    - sudo
+    - bash-completion
+    - less
+    - jq
+    - curl
+    - wget
+    - gnupg2
+
+  system_utils:
+    - tmux
+    - vim
+    - mc
+    - ca-certificates
+    - logrotate
+    - git
+    - chrony
+
+  network_utils:
+    - iproute2
+    - tcpdump
+    - nmap
+    - traceroute
+
+  disk_utils:
+    - tree
+    - unzip
+    - rsync
+    - parted
+    - lvm2
+    - xfsprogs
+
+  monitoring_utils:
+    - sysstat
+    - strace
+    - lsof
+
+  cloud_utils:
+    - cloud-init
+    - qemu-guest-agent
+
+# Настройки sysctl
+sysctl_settings:
+  ipv6:
+    net.ipv6.conf.all.disable_ipv6: 1
+    net.ipv6.conf.default.disable_ipv6: 1
+    net.ipv6.conf.lo.disable_ipv6: 1
+
+  kernel:
+    kernel.kptr_restrict: 1
+    kernel.dmesg_restrict: 1
+    kernel.randomize_va_space: 2
+    dev.tty.ldisc_autoload: 0
+    vm.mmap_min_addr: 65536
+
+  file_system:
+    fs.protected_symlinks: 1
+    fs.protected_hardlinks: 1
+    fs.protected_fifos: 1
+    fs.protected_regular: 2
+    fs.suid_dumpable: 0
+
+  network:
+    net.ipv4.conf.all.accept_redirects: 0
+    net.ipv4.conf.default.accept_redirects: 0
+    net.ipv6.conf.all.accept_redirects: 0
+    net.ipv6.conf.default.accept_redirects: 0
+    net.ipv4.conf.all.accept_source_route: 0
+    net.ipv6.conf.all.accept_source_route: 0
+    net.ipv4.icmp_echo_ignore_broadcasts: 1
+    net.ipv4.icmp_ignore_bogus_error_responses: 1
+    net.ipv4.tcp_syncookies: 1

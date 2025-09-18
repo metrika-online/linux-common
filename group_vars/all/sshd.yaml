@@ -1,0 +1,30 @@
+# SSH configuration settings
+ssh_config:
+  # Basic settings
+  port: 22
+
+  # Logging
+  log_level: "VERBOSE"
+
+  # Authentication
+  login_grace_time: "45s"
+  permit_root_login: "no"
+  max_auth_tries: 6
+  password_authentication: "no"
+  interactive_authentication: "no"
+  pubkey_authentication: "yes"
+
+  # Security
+  authentication_methods: "publickey"
+  use_pam: "yes"
+  x11_forwarding: "no"
+  tcp_keep_alive: "no"
+  print_last_log: "yes"
+  allow_tcp_forwarding: "yes"
+  allow_agent_forwarding: "yes"
+
+  # Connection settings
+  max_sessions: 10
+  client_alive_interval: 600
+  client_alive_count_max: 10
+  max_startups: "10:30:60"

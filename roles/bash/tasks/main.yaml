@@ -1,0 +1,43 @@
+---
+- name: "Validate bash_config variables"
+  ansible.builtin.fail:
+    msg: "bash_config variable is not defined"
+  when: bash_config is not defined
+  tags: [bash, validation]
+
+- name: "Configure bash"
+  tags: ["bash"]
+  block:
+    - name: "Configure bash: basrc"
+      ansible.builtin.blockinfile:
+        path: /etc/bash.bashrc
+        block: |
+          export HISTTIMEFORMAT="{{ bash_config.histtimeformat | default('%h %d %H:%M:%S ')}}"
+          export HISTSIZE={{ bash_config.histsize | default(5000) }}
+          export HISTFILESIZE={{ bash_config.histfilesize | default(10000) }}
+          PROMPT_COMMAND="{{ bash_config.prompt_command | default('history -a') }}"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - bash settings"
+        create: true
+        backup: true
+        mode: "0644"
+        owner: "root"
+        group: "root"
+  rescue:
+    - name: "Configure bash: failure"
+      ansible.builtin.debug:
+        msg: "Bash configuration failed for {{ inventory_hostname }}"
+      tags: [bash, error]
+
+- name: "Verify bash configuration"
+  tags: [bash, verification]
+  block:
+    - name: "Verify bash configuration: syntax"
+      ansible.builtin.command: "bash -n /etc/bash.bashrc"
+      register: bash_config_test
+      changed_when: false
+      failed_when: bash_config_test.rc != 0
+
+    - name: "Verify bash configuration: debug"
+      ansible.builtin.debug:
+        msg: "{{ bash_config_test.stdout }}"
+      when: debug | default(false) | bool

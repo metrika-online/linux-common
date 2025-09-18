@@ -1,0 +1,88 @@
+---
+- name: "Validate variables"
+  tags: [debian, validation]
+  block:
+    - name: "Validate variables: packages"
+      ansible.builtin.fail:
+        msg: "packages variable is not defined or is not sequence"
+      when:
+        - packages is not defined or packages is not sequence
+
+    - name: "Validate variables: debian_packages"
+      ansible.builtin.fail:
+        msg: "debian_packages variable is not defined or is not sequence"
+      when:
+        - debian_packages is not defined or debian_packages is not sequence
+
+    - name: "Validate variables: unattended_upgrades"
+      ansible.builtin.fail:
+        msg: "unattended_upgrades variable is not defined or is not a dictionary"
+      when: unattended_upgrades is not defined or unattended_upgrades is not mapping
+
+- name: "Install packages"
+  tags: [debian, packages]
+  block:
+    - name: "Install packages: linux"
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: "present"
+        update_cache: true
+        cache_valid_time: 3600
+      # flatten - объединение списков
+      loop: "{{ packages.values() | flatten | unique }}"
+      when: packages is defined
+      retries: 2
+      delay: 5
+
+    - name: "Install packages: debian"
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: "present"
+        update_cache: true
+        cache_valid_time: 3600
+      # flatten - объединение списков
+      loop: "{{ debian_packages.values() | flatten | unique }}"
+      when: debian_packages is defined
+      retries: 2
+      delay: 5
+
+- name: "Configure unattended_upgrades"
+  when: unattended_upgrades.enabled | default(false) | bool
+  tags: [debian, apt, security]
+  block:
+    - name: "Configure unattended_upgrades: 50unattended-upgrades template"
+      ansible.builtin.template:
+        src: "apt.conf.d/50unattended-upgrades.j2"
+        dest: "/etc/apt/apt.conf.d/50unattended-upgrades"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify: "apt configuration changed"
+
+    - name: "Configure unattended_upgrades: 20auto-upgrades template"
+      ansible.builtin.template:
+        src: "apt.conf.d/20auto-upgrades.j2"
+        dest: "/etc/apt/apt.conf.d/20auto-upgrades"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      notify: "apt configuration changed"
+  rescue:
+    - name: "Configure unattended_upgrades: failure"
+      ansible.builtin.debug:
+        msg: "Unattended_upgrades configuration failed for {{ inventory_hostname }}"
+      tags: [debian, apt, security, error]
+
+- name: "Verify unattended_upgrades configuration"
+  tags: [debian, apt, security, verification]
+  block:
+    - name: "Verify unattended_upgrades configuration: syntax"
+      ansible.builtin.command: "unattended-upgrades --dry-run --debug"
+      register: unattended_upgrades_test
+      changed_when: false
+      failed_when: unattended_upgrades_test.rc != 0
+
+    - name: "Verify unattended_upgrades configuration: debug"
+      ansible.builtin.debug:
+        msg: "{{ unattended_upgrades_test.stdout }}"
+      when: debug | default(false) | bool

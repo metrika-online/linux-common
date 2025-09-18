@@ -1,0 +1,7 @@
+---
+# Группа для ansible-pull (локальные машины)
+local:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_host: 127.0.0.1

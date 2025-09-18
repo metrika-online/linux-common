@@ -1,0 +1,27 @@
+---
+# Настройки unattended-upgrades
+unattended_upgrades:
+  remove_unused_kernel: true
+  remove_unused_dependencies: true
+  auto_reboot: true
+  reboot_time: "02:00"
+  blacklist_packages: []
+  update_package_lists: 1
+  enabled: true
+  download_upgradeable_packages: 1
+  autoclean_interval: 7
+
+# Группы пакетов для установки
+debian_packages:
+  system_utils:
+    - apt-transport-https
+    - unattended-upgrades
+
+  network_utils:
+    - dnsutils
+
+  monitoring_utils:
+    - htop
+    - iotop
+    - iftop
+    - smem
