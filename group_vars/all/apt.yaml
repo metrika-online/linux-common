@@ -10,18 +10,3 @@ unattended_upgrades:
   enabled: true
   download_upgradeable_packages: 1
   autoclean_interval: 7
-
-# Группы пакетов для установки
-debian_packages:
-  system_utils:
-    - apt-transport-https
-    - unattended-upgrades
-
-  network_utils:
-    - dnsutils
-
-  monitoring_utils:
-    - htop
-    - iotop
-    - iftop
-    - smem

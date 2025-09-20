@@ -5,49 +5,6 @@ ntp_servers:
   - 1.ru.pool.ntp.org
   - 2.ru.pool.ntp.org
 
-# Универсальные пакеты под все Linux
-packages:
-  base_utils:
-    - sudo
-    - bash-completion
-    - less
-    - jq
-    - curl
-    - wget
-    - gnupg2
-
-  system_utils:
-    - tmux
-    - vim
-    - mc
-    - ca-certificates
-    - logrotate
-    - git
-    - chrony
-
-  network_utils:
-    - iproute2
-    - tcpdump
-    - nmap
-    - traceroute
-
-  disk_utils:
-    - tree
-    - unzip
-    - rsync
-    - parted
-    - lvm2
-    - xfsprogs
-
-  monitoring_utils:
-    - sysstat
-    - strace
-    - lsof
-
-  cloud_utils:
-    - cloud-init
-    - qemu-guest-agent
-
 # Настройки sysctl
 sysctl_settings:
   ipv6:
