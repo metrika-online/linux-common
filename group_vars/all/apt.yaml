@@ -7,6 +7,6 @@ unattended_upgrades:
   reboot_time: "02:00"
   blacklist_packages: []
   update_package_lists: 1
-  enabled: true
+  enabled: 1
   download_upgradeable_packages: 1
   autoclean_interval: 7

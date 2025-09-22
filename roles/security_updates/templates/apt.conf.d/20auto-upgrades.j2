@@ -7,7 +7,7 @@
 APT::Periodic::Update-Package-Lists "{{ unattended_upgrades.update_package_lists | default('1') }}";
 
 {# Выполнение unattended-upgrades #}
-APT::Periodic::Unattended-Upgrade "{{ unattended_upgrades.enabled | default(false) | bool | lower }}";
+APT::Periodic::Unattended-Upgrade "{{ unattended_upgrades.enabled | default('1') }}";
 
 {# Скачивание обновляемых пакетов #}
 APT::Periodic::Download-Upgradeable-Packages "{{ unattended_upgrades.download_upgradeable_packages | default('1') }}";
