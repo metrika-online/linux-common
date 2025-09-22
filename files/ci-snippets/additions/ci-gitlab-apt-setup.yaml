@@ -40,10 +40,6 @@ runcmd:
     gitlab_workhorse['proxy_protocol'] = true
     EOF
     gitlab-ctl reconfigure
-<<<<<<< HEAD
-  - systemctl status apt-daily.service
-=======
   - systemctl restart apt-daily.service
->>>>>>> 0edff275b809d797cfac553ea11ea456377d7dec
 
 final_message: "GitLab configuration completed successfully"
