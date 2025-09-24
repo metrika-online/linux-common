@@ -4,10 +4,9 @@ merge_how:
    settings: [append]
  - name: dict
    settings: [no_replace, recurse_list]
-  
+
 package_update: true
 package_upgrade: all
-
 packages:
   - git
   - ansible
