@@ -9,7 +9,7 @@
 
 
 - name: "Configure updates_unattended_upgrades"
-  when: updates_unattended_upgrades.enabled
+  when: updates_unattended_upgrades.enabled == 1
   tags: [debian, apt, security]
   block:
     - name: "Configure updates_unattended_upgrades: 50unattended-upgrades template"
