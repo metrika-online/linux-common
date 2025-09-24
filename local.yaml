@@ -3,6 +3,7 @@
   hosts: "local"
   tags: [packages]
   become: true
+  gather_facts: true
   roles:
     - role: "packages"
 
@@ -10,6 +11,7 @@
   hosts: "local"
   tags: [configs]
   become: true
+  gather_facts: true
   roles:
     - role: "updates"
     - role: "bash"
