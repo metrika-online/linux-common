@@ -12,7 +12,6 @@ packages:
   - git
   - ansible
 
-
 runcmd:
   - ansible-pull -U https://github.com/metrika-online/linux-common.git local.yaml -v
 
