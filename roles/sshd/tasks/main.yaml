@@ -1,8 +1,8 @@
 ---
 - name: "Validate SSH variables"
   ansible.builtin.fail:
-    msg: "ssh_config variable is not defined or is not a dictionary"
-  when: ssh_config is not defined or ssh_config is not mapping
+    msg: "sshd_config variable is not defined or is not a dictionary"
+  when: sshd_config is not defined or sshd_config is not mapping
   tags: [ssh, validation]
 
 - name: "SSH configuration"
@@ -29,11 +29,11 @@
   block:
     - name: "Verify SSH configuration: syntax"
       ansible.builtin.command: "/usr/sbin/sshd -T"
-      register: ssh_config_test
+      register: sshd_config_test
       changed_when: false
-      failed_when: ssh_config_test.rc != 0
+      failed_when: sshd_config_test.rc != 0
 
     - name: "Verify SSH configuration: debug"
       ansible.builtin.debug:
-        msg: "{{ ssh_config_test.stdout }}"
+        msg: "{{ sshd_config_test.stdout }}"
       when: debug | default(false) | bool

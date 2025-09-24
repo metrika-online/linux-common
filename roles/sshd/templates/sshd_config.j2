@@ -7,7 +7,7 @@
 Include /etc/ssh/sshd_config.d/*.conf
 
 {# Базовые настройки #}
-Port {{ ssh_config.port | default(22) }}
+Port {{ sshd_config.port }}
 
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
@@ -15,43 +15,43 @@ HostKey /etc/ssh/ssh_host_ed25519_key
 
 {# Настройки логирования #}
 SyslogFacility AUTH
-LogLevel {{ ssh_config.log_level | default('INFO') }}
+LogLevel {{ sshd_config.log_level }}
 
 {# Настройки аутентификации #}
-LoginGraceTime {{ ssh_config.login_grace_time | default('45s') }}
-PermitRootLogin {{ ssh_config.permit_root_login | default('no') }}
-StrictModes {{ ssh_config.strict_mode | default('yes') }}
-MaxAuthTries {{ ssh_config.max_auth_tries | default(6) }}
-MaxSessions {{ ssh_config.max_sessions | default(10) }}
+LoginGraceTime {{ sshd_config.login_grace_time }}
+PermitRootLogin {{ sshd_config.permit_root_login }}
+StrictModes {{ sshd_config.strict_mode }}
+MaxAuthTries {{ sshd_config.max_auth_tries }}
+MaxSessions {{ sshd_config.max_sessions }}
 
 {# Настройки публичного ключа #}
-PubkeyAuthentication {{ ssh_config.pubkey_authentication | default('yes') }}
+PubkeyAuthentication {{ sshd_config.pubkey_authentication }}
 AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
 
 {# Настройки парольной аутентификации #}
-PasswordAuthentication {{ ssh_config.password_authentication | default('yes') }}
+PasswordAuthentication {{ sshd_config.password_authentication }}
 PermitEmptyPasswords no
 ChallengeResponseAuthentication no
-KbdInteractiveAuthentication {{ ssh_config.interactive_authentication | default('yes') }}
+KbdInteractiveAuthentication {{ sshd_config.interactive_authentication }}
 
 {# Методы аутентификации #}
-AuthenticationMethods {{ ssh_config.authentication_methods | default('password') }}
+AuthenticationMethods {{ sshd_config.authentication_methods }}
 
 {# Настройки безопасности #}
-UsePAM {{ ssh_config.use_pam | default('yes') }}
-AllowTcpForwarding {{ ssh_config.allow_tcp_forwarding | default('yes') }}
-AllowAgentForwarding {{ ssh_config.allow_agent_forwarding | default('yes') }}
-X11Forwarding {{ ssh_config.x11_forwarding | default('no') }}
+UsePAM {{ sshd_config.use_pam }}
+AllowTcpForwarding {{ sshd_config.allow_tcp_forwarding }}
+AllowAgentForwarding {{ sshd_config.allow_agent_forwarding }}
+X11Forwarding {{ sshd_config.x11_forwarding }}
 PrintMotd no
-PrintLastLog {{ ssh_config.print_last_log | default('yes') }}
-TCPKeepAlive {{ ssh_config.tcp_keep_alive | default('no') }}
+PrintLastLog {{ sshd_config.print_last_log }}
+TCPKeepAlive {{ sshd_config.tcp_keep_alive }}
 
 {# Настройки keepalive #}
-ClientAliveInterval {{ ssh_config.client_alive_interval | default(600) }}
-ClientAliveCountMax {{ ssh_config.client_alive_count_max | default(10) }}
+ClientAliveInterval {{ sshd_config.client_alive_interval }}
+ClientAliveCountMax {{ sshd_config.client_alive_count_max }}
 
 {# Настройки лимитов #}
-MaxStartups {{ ssh_config.max_startups | default('10:30:60') }}
+MaxStartups {{ sshd_config.max_startups }}
 
 {# Переменные окружения #}
 AcceptEnv LANG LC_*

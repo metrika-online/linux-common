@@ -1,0 +1,35 @@
+---
+- name: "Validate variables"
+  tags: [debian, validation, always]
+  block:
+    - name: "Validate variables: packages_common"
+      ansible.builtin.fail:
+        msg: "packages_common must be a list"
+      when:
+        - packages_common is not defined or not packages_common is iterable or packages_common is string
+
+    - name: "Validate variables: packages_debian"
+      ansible.builtin.fail:
+        msg: "packages_debian must be a list"
+      when:
+        - packages_debian is not defined or not packages_debian is iterable or packages_debian is string
+
+
+- name: "Install packages"
+  tags: [debian, apt]
+  block:
+    - name: "Install packages: packages_common"
+      ansible.builtin.apt:
+        name: "{{ packages_common }}"
+        state: "present"
+        update_cache: "{{ packages_apt_cache_update }}"
+        cache_valid_time: "{{ packages_apt_cache_valid_time }}"
+      when: packages_common | length > 0
+
+    - name: "Install packages: packages_debian"
+      ansible.builtin.apt:
+        name: "{{ packages_debian }}"
+        state: "present"
+        update_cache: "{{ packages_apt_cache_update }}"
+        cache_valid_time: "{{ packages_apt_cache_valid_time }}"
+      when: packages_debian | length > 0

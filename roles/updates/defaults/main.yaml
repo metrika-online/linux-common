@@ -1,15 +1,9 @@
 ---
-packages_debian:
-  - apt-transport-https
-  - unattended-upgrades
-  - cloud-guest-utils
-
-# Настройки unattended-upgrades (в наименовании необходимо updates_ по ansible-lint)
 updates_unattended_upgrades:
   remove_unused_kernel: false
   remove_unused_dependencies: true
   auto_reboot: true
-  reboot_time: "04:00"
+  reboot_time: "02:00"
   blacklist_packages: []
   update_package_lists: 1
   enabled: 1

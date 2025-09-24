@@ -1,10 +1,11 @@
 ---
 - name: "Validate chrony variables"
+  tags: [chrony, validation, always]
   ansible.builtin.fail:
     msg: "ntp_servers variable is not defined or is not sequence"
   when:
     - ntp_servers is not defined or ntp_servers is not sequence
-  tags: [chrony, validation]
+
 
 - name: "Chrony configuration"
   tags: [chrony]
@@ -23,6 +24,7 @@
       ansible.builtin.debug:
         msg: "Chrony configuration failed for {{ inventory_hostname }}"
       tags: [chrony, error]
+
 
 - name: "Verify chrony configuration"
   tags: [chrony, verification]

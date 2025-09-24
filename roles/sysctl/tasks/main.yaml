@@ -1,11 +1,12 @@
 ---
 - name: "Validate sysctl configuration"
   ansible.builtin.fail:
-    msg: "sysctl_settings variable is not defined"
-  when: sysctl_settings is not defined
+    msg: "sysctl_settings variable is not defined or is not mapping"
+  when: sysctl_settings is not defined or sysctl_settings is not mapping
   tags: [sysctl, validation]
 
 - name: "Configure sysctl settings"
+  when: sysctl_settings
   tags: [sysctl, security]
   block:
     - name: "Configure IPv6 settings"
@@ -47,3 +48,17 @@
         reload: true
       loop: "{{ sysctl_settings.network | dict2items }}"
       when: sysctl_settings.network is defined
+
+- name: "Verify sysctl configuration"
+  tags: [sysctl, verification]
+  block:
+    - name: "Verify sysctl configuration: all parameters"
+      ansible.builtin.command: "sysctl -a"
+      register: sysctl_all
+      changed_when: false
+      failed_when: false
+
+    - name: "Verify sysctl configuration: debug"
+      ansible.builtin.debug:
+        msg: "{{ sysctl_all.stdout }}"
+      when: debug | default(false) | bool

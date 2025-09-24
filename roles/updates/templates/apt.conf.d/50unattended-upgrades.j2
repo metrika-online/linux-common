@@ -7,16 +7,16 @@ Unattended-Upgrade::Origins-Pattern {
 };
 
 // Automatic cleanup settings
-Unattended-Upgrade::Remove-Unused-Kernel-Packages "{{ unattended_upgrades.remove_unused_kernel | default(true) | bool | lower }}";
-Unattended-Upgrade::Remove-Unused-Dependencies "{{ unattended_upgrades.remove_unused_dependencies | default(true) | bool | lower }}";
+Unattended-Upgrade::Remove-Unused-Kernel-Packages "{{ updates_unattended_upgrades.remove_unused_kernel | default(true) | bool | lower }}";
+Unattended-Upgrade::Remove-Unused-Dependencies "{{ updates_unattended_upgrades.remove_unused_dependencies | default(true) | bool | lower }}";
 Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
 Unattended-Upgrade::AutoFixInterruptedDpkg "true";
 Unattended-Upgrade::MinimalSteps "true";
 
 // Automatic reboot settings
-Unattended-Upgrade::Automatic-Reboot "{{ unattended_upgrades.auto_reboot | default(false) | bool | lower }}";
-{% if unattended_upgrades.auto_reboot | default(false) | bool %}
-Unattended-Upgrade::Automatic-Reboot-Time "{{ unattended_upgrades.reboot_time | default('02:00') }}";
+Unattended-Upgrade::Automatic-Reboot "{{ updates_unattended_upgrades.auto_reboot | default(false) | bool | lower }}";
+{% if updates_unattended_upgrades.auto_reboot | default(false) | bool %}
+Unattended-Upgrade::Automatic-Reboot-Time "{{ updates_unattended_upgrades.reboot_time | default('02:00') }}";
 Unattended-Upgrade::Automatic-Reboot-WithUsers "true";
 {% endif %}
 
@@ -28,7 +28,7 @@ Unattended-Upgrade::Download-Only "false";
 
 // Package blacklist
 Unattended-Upgrade::Package-Blacklist {
-{% for package in unattended_upgrades.blacklist_packages | default([]) %}
+{% for package in updates_unattended_upgrades.blacklist_packages | default([]) %}
     "{{ package }}";
 {% endfor %}
 };

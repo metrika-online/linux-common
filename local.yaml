@@ -1,9 +1,17 @@
 ---
-- name: "Configure linux"
+- name: "Pull linux packages"
   hosts: "local"
+  tags: [packages]
   become: true
   roles:
-    - role: "security_updates"
+    - role: "packages"
+
+- name: "Pull linux configs"
+  hosts: "local"
+  tags: [configs]
+  become: true
+  roles:
+    - role: "updates"
     - role: "bash"
     - role: "sysctl"
     - role: "sshd"

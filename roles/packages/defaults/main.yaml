@@ -1,0 +1,6 @@
+---
+packages_apt_cache_update: true
+packages_apt_cache_valid_time: 3600
+
+packages_common: []
+packages_debian: []

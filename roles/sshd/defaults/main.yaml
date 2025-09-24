@@ -1,25 +1,24 @@
 ---
-# SSH configuration settings
 sshd_config:
   # Basic settings
   port: 22
 
   # Logging
-  log_level: "VERBOSE"
+  log_level: "INFO"
 
   # Authentication
   login_grace_time: "45s"
   permit_root_login: "no"
   max_auth_tries: 6
-  password_authentication: "no"
-  interactive_authentication: "no"
+  password_authentication: "yes"
+  interactive_authentication: "yes"
   pubkey_authentication: "yes"
 
   # Security
-  authentication_methods: "publickey"
+  authentication_methods: "password"
   use_pam: "yes"
-  x11_forwarding: "no"
-  tcp_keep_alive: "no"
+  x11_forwarding: "yes"
+  tcp_keep_alive: "yes"
   print_last_log: "yes"
   allow_tcp_forwarding: "yes"
   allow_agent_forwarding: "yes"

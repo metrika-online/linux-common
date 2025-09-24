@@ -1,0 +1,6 @@
+---
+bash_config:
+  histsize: 5000
+  histfilesize: 10000
+  histtimeformat: "%h %d %H:%M:%S "
+  prompt_command: "history -a"

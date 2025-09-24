@@ -4,16 +4,16 @@
 # ============================================================ #
 
 {# Обновление списков пакетов #}
-APT::Periodic::Update-Package-Lists "{{ unattended_upgrades.update_package_lists | default('1') }}";
+APT::Periodic::Update-Package-Lists "{{ updates_unattended_upgrades.update_package_lists | default('1') }}";
 
 {# Выполнение unattended-upgrades #}
-APT::Periodic::Unattended-Upgrade "{{ unattended_upgrades.enabled | default('1') }}";
+APT::Periodic::Unattended-Upgrade "{{ updates_unattended_upgrades.enabled | default('1') }}";
 
 {# Скачивание обновляемых пакетов #}
-APT::Periodic::Download-Upgradeable-Packages "{{ unattended_upgrades.download_upgradeable_packages | default('1') }}";
+APT::Periodic::Download-Upgradeable-Packages "{{ updates_unattended_upgrades.download_upgradeable_packages | default('1') }}";
 
 {# Интервал автоматической очистки (в дней) #}
-APT::Periodic::AutocleanInterval "{{ unattended_upgrades.autoclean_interval | default('7') }}";
+APT::Periodic::AutocleanInterval "{{ updates_unattended_upgrades.autoclean_interval | default('7') }}";
 
 {# Дополнительные настройки (опционально) #}
 {# APT::Periodic::Verbose "0"; #}

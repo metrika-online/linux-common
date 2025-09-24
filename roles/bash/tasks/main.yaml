@@ -1,9 +1,10 @@
 ---
 - name: "Validate bash_config variables"
+  tags: [bash, validation, always]
   ansible.builtin.fail:
     msg: "bash_config variable is not defined"
   when: bash_config is not defined
-  tags: [bash, validation]
+
 
 - name: "Configure bash"
   tags: ["bash"]
@@ -12,10 +13,10 @@
       ansible.builtin.blockinfile:
         path: /etc/bash.bashrc
         block: |
-          export HISTTIMEFORMAT="{{ bash_config.histtimeformat | default('%h %d %H:%M:%S ') }}"
-          export HISTSIZE={{ bash_config.histsize | default(5000) }}
-          export HISTFILESIZE={{ bash_config.histfilesize | default(10000) }}
-          PROMPT_COMMAND="{{ bash_config.prompt_command | default('history -a') }}"
+          export HISTTIMEFORMAT="{{ bash_config.histtimeformat }}"
+          export HISTSIZE={{ bash_config.histsize }}
+          export HISTFILESIZE={{ bash_config.histfilesize }}
+          PROMPT_COMMAND="{{ bash_config.prompt_command }}"
         create: true
         backup: true
         mode: "0644"
@@ -26,6 +27,7 @@
       ansible.builtin.debug:
         msg: "Bash configuration failed for {{ inventory_hostname }}"
       tags: [bash, error]
+
 
 - name: "Verify bash configuration"
   tags: [bash, verification]

@@ -1,6 +1,48 @@
 ---
+# Набор базовых пакетов
+packages_common:
+  # base utils
+  - sudo
+  - bash-completion
+  - less
+  - jq
+  - curl
+  - wget
+  - gnupg2
+  # system utils
+  - tmux
+  - vim
+  - mc
+  - ca-certificates
+  - logrotate
+  - git
+  - chrony
+  # netwok utils
+  - iproute2
+  - tcpdump
+  - nmap
+  - traceroute
+  # disk utils
+  - tree
+  - unzip
+  - rsync
+  - parted
+  - lvm2
+  - xfsprogs
+  # monitroing utils
+  - sysstat
+  - strace
+  - lsof
+  - htop
+  - iotop
+  - iftop
+  - smem
+  # cloud utils
+  - qemu-guest-agent
+  - ansible
+
 # Настройки времени
-ntp_servers:
+chrony_ntp_servers:
   - 0.ru.pool.ntp.org
   - 1.ru.pool.ntp.org
   - 2.ru.pool.ntp.org
