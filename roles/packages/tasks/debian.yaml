@@ -25,7 +25,6 @@
         state: "present"
         update_cache: "{{ packages_apt_cache_update }}"
         cache_valid_time: "{{ packages_apt_cache_valid_time }}"
-      with_items: "{{  }}"
 
     - name: "Install packages: packages_debian"
       when: packages_debian | length > 0
