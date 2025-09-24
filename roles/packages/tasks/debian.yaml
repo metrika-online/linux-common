@@ -19,17 +19,19 @@
   tags: [debian, apt]
   block:
     - name: "Install packages: packages_common"
+      when: packages_common | length > 0
       ansible.builtin.apt:
         name: "{{ packages_common }}"
         state: "present"
         update_cache: "{{ packages_apt_cache_update }}"
         cache_valid_time: "{{ packages_apt_cache_valid_time }}"
-      when: packages_common | length > 0
+      with_items: "{{  }}"
 
     - name: "Install packages: packages_debian"
+      when: packages_debian | length > 0
       ansible.builtin.apt:
         name: "{{ packages_debian }}"
         state: "present"
         update_cache: "{{ packages_apt_cache_update }}"
         cache_valid_time: "{{ packages_apt_cache_valid_time }}"
-      when: packages_debian | length > 0
+
