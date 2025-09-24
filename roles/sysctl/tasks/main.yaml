@@ -6,7 +6,7 @@
   tags: [sysctl, validation]
 
 - name: "Configure sysctl settings"
-  when: sysctl_settings
+  when: sysctl_settings is defined
   tags: [sysctl, security]
   block:
     - name: "Configure IPv6 settings"
