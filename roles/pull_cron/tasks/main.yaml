@@ -9,8 +9,8 @@
 
     - name: "Validate pull_cron variables: pull_cron_job"
       ansible.builtin.fail:
-        msg: "pull_cron_job variable is not defined or is not mapping"
-      when: pull_cron_job is not defined or pull_cron_job is not mapping
+        msg: "pull_cron_job variable is not defined"
+      when: pull_cron_job is not defined
 
 
 - name: "Pull ansible"
