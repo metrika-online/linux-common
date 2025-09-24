@@ -1,0 +1,13 @@
+---
+pull_cron_parameters:
+  name: "ansible pull config"
+  file: "ansible-pull-configs"
+  minute: "*/30"
+  hour: "*"
+  day: "*"
+  weekday: "*"
+  month: "*"
+  user: "root"
+  url: "https://github.com/metrika-online/linux-common.git"
+
+pull_cron_job: "ansible-pull -U {{ pull_cron.url }} local.yaml --tags=configs"

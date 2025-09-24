@@ -1,0 +1,19 @@
+#cloud-config
+merge_how:
+ - name: list
+   settings: [append]
+ - name: dict
+   settings: [no_replace, recurse_list]
+  
+package_update: true
+package_upgrade: all
+
+packages:
+  - git
+  - ansible
+
+
+runcmd:
+  - ansible-pull -U https://github.com/metrika-online/linux-common.git local.yaml -v
+
+final_message: "Linux common configuration completed successfully"

@@ -16,3 +16,4 @@
     - role: "sysctl"
     - role: "sshd"
     - role: "chrony"
+    - role: "pull_cron"

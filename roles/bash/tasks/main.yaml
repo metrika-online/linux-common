@@ -2,8 +2,8 @@
 - name: "Validate bash_config variables"
   tags: [bash, validation, always]
   ansible.builtin.fail:
-    msg: "bash_config variable is not defined"
-  when: bash_config is not defined
+    msg: "bash_config variable is not defined or is not mapping"
+  when: bash_config is not defined or bash_config is not mapping
 
 
 - name: "Configure bash"

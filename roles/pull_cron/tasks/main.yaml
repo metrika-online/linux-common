@@ -1,0 +1,28 @@
+---
+- name: "Validate pull_cron variables"
+  tags: [cron, validation, always]
+  block:
+    - name: "Validate pull_cron variables: pull_cron_parameters"
+      ansible.builtin.fail:
+        msg: "pull_cron_parameters variable is not defined or is not mapping"
+      when: pull_cron_parameters is not defined or pull_cron_parameters is not mapping
+
+    - name: "Validate pull_cron variables: pull_cron_job"
+      ansible.builtin.fail:
+        msg: "pull_cron_job variable is not defined or is not mapping"
+      when: pull_cron_job is not defined or pull_cron_job is not mapping
+
+
+- name: "Pull ansible"
+  tags: [cron]
+  ansible.builtin.cron:
+    name: "{{ pull_cron_parameters.name }}"
+    cron_file: "{{ pull_cron_parameters.file }}"
+    minute: "{{ pull_cron_parameters.minute }}"
+    hour: "{{ pull_cron_parameters.hour }}"
+    day: "{{ pull_cron_parameters.day }}"
+    weekday: "{{ pull_cron_parameters.weekday }}"
+    month: "{{ pull_cron_parameters.month }}"
+    user: "{{ pull_cron_parameters.user }}"
+    job: "{{ pull_cron_job }}"
+    state: present

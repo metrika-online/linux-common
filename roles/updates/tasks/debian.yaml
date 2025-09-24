@@ -1,6 +1,6 @@
 ---
 - name: "Validate variables"
-  tags: [debian, validation, always]
+  tags: [apt, validation, always]
   block:
     - name: "Validate variables: updates_unattended_upgrades"
       ansible.builtin.fail:
@@ -10,7 +10,7 @@
 
 - name: "Configure updates_unattended_upgrades"
   when: updates_unattended_upgrades.enabled == 1
-  tags: [debian, apt, security]
+  tags: [apt, security]
   block:
     - name: "Configure updates_unattended_upgrades: 50unattended-upgrades template"
       ansible.builtin.template:
@@ -33,11 +33,11 @@
     - name: "Configure updates_unattended_upgrades: failure"
       ansible.builtin.debug:
         msg: "updates_unattended_upgrades configuration failed for {{ inventory_hostname }}"
-      tags: [debian, apt, security, error]
+      tags: [apt, security, error]
 
 
 - name: "Verify updates_unattended_upgrades configuration"
-  tags: [debian, apt, security, verification]
+  tags: [apt, security, verification]
   block:
     - name: "Verify updates_unattended_upgrades configuration: syntax"
       ansible.builtin.command: "unattended-upgrades --dry-run --debug"
