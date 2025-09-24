@@ -56,3 +56,4 @@ gitlab_rails['backup_archive_permissions'] = 0644
 gitlab_rails['backup_keep_time'] = 604800  # 7 дней в секундах
 EOF
 gitlab-ctl reconfigure
+cat /etc/gitlab/initial_root_password | grep 'Password: '
