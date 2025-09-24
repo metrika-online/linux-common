@@ -12,6 +12,9 @@
   tags: [configs]
   become: true
   gather_facts: true
+  pre_tasks:
+    - name: Gather facts
+      ansible.builtin.setup:
   roles:
     - role: "updates"
     - role: "bash"
