@@ -12,7 +12,7 @@ DISK_ID="scsi-0QEMU_QEMU_HARDDISK_drive-scsi1"
 DISK_DEV="/dev/disk/by-id/${DISK_ID}"
 PARTITION_DEV="${DISK_DEV}-part1"
 VG_ID="vg_data"
-LV_ID="lv_data"
+LV_ID="lv_gitlab"
 LVM_DEV="/dev/mapper/${VG_ID}-${LV_ID}"
 GITLAB_DATA="/var/opt/gitlab/"
 
