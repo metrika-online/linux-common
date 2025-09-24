@@ -10,4 +10,4 @@ pull_cron_parameters:
   user: "root"
   url: "https://github.com/metrika-online/linux-common.git"
 
-pull_cron_job: "ansible-pull -U {{ pull_cron.url }} local.yaml --tags=configs"
+pull_cron_job: "ansible-pull -U {{ pull_cron_parameters.url }} local.yaml --tags=configs"
