@@ -9,7 +9,7 @@
 
 - name: "Pull linux configs"
   hosts: "local"
-  tags: [configs]
+  tags: [configs, always]
   become: true
   gather_facts: true
   roles:
