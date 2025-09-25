@@ -42,7 +42,7 @@ fi
 
 
 
-curl -fsSL "${KEY_URL}" | gpg --dearmor -o $KEY_FILE
+curl -fsSL "${KEY_URL}" | gpg --yes --dearmor -o $KEY_FILE
 echo "deb [signed-by=${KEY_FILE}] ${REPO} ${DISTRIB} main" | tee $SOURCE_FILE
 apt update
 EXTERNAL_URL="${GITLAB_URL}" apt install -y gitlab-ce
@@ -52,8 +52,6 @@ gitlab_rails['gitlab_duo_features_enabled'] = false
 nginx['proxy_protocol'] = true
 gitlab_workhorse['proxy_protocol'] = true
 gitlab_rails['backup_path'] = "/var/opt/gitlab/backups"
-gitlab_rails['backup_archive_permissions'] = 0644
-gitlab_rails['backup_keep_time'] = 604800
 EOF
 gitlab-ctl reconfigure
 cat /etc/gitlab/initial_root_password | grep 'Password: '
