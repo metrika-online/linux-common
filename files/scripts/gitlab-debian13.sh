@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-GITLAB_URL="https://git.metrika-online.ru"
+GITLAB_URL="http://git.metrika-online.ru"
 KEY_URL="https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey"
 KEY_FILE="/usr/share/keyrings/gitlab-archive-keyring.gpg"
 REPO="https://packages.gitlab.com/gitlab/gitlab-ce/debian"
@@ -53,7 +53,7 @@ nginx['proxy_protocol'] = true
 gitlab_workhorse['proxy_protocol'] = true
 gitlab_rails['backup_path'] = "/var/opt/gitlab/backups"
 gitlab_rails['backup_archive_permissions'] = 0644
-gitlab_rails['backup_keep_time'] = 604800  # 7 дней в секундах
+gitlab_rails['backup_keep_time'] = 604800
 EOF
 gitlab-ctl reconfigure
 cat /etc/gitlab/initial_root_password | grep 'Password: '
